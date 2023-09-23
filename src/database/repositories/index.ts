@@ -1,3 +1,4 @@
-import { ProductRepository } from './ProductRepository';
+import { RoomRepository } from './room.repository';
+import { UserRepository } from './user.repository';
 
-export const repositories = [ProductRepository];
+export const repositories = [UserRepository, RoomRepository];

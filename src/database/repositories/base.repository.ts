@@ -1,8 +1,9 @@
-import { BaseModel } from '../models/BaseModel';
+import { BaseModel } from '../models/base.model';
 import { Model } from 'mongoose';
 
 export interface IBaseRepository<Entity extends BaseModel> {
   findAll(): Promise<Entity[]>;
+  findOne(): Promise<Entity | null>;
   findOneById(id: string): Promise<Entity | null>;
   create(createAttr: any): Promise<Entity>;
   updateOneAndReturn(id: string, updateAttr: any): Promise<Entity | null>;
@@ -35,6 +36,14 @@ export abstract class BaseRepository<Entity extends BaseModel>
       newFilters = { deletedAt: { $eq: null }, ...newFilters };
     }
     return this.docModel.find(newFilters).exec();
+  }
+
+  findOne(filters = {}, includeDeleted = false): Promise<Entity | null> {
+    let newFilters = filters;
+    if (!includeDeleted) {
+      newFilters = { deletedAt: { $eq: null }, ...newFilters };
+    }
+    return this.docModel.findOne(newFilters).exec();
   }
 
   create(createAttr: any): Promise<Entity> {

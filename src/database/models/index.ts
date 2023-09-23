@@ -1,4 +1,7 @@
-import { Price, PriceSchema } from './PriceModel';
-import { Product, ProductSchema } from './ProductModel';
+import { RoomModel, RoomSchema } from './room.model';
+import { UserModel, UserSchema } from './user.model';
 
-export const documents = [{ name: Product.name, schema: ProductSchema }];
+export const documents = [
+  { name: UserModel.name, schema: UserSchema },
+  { name: RoomModel.name, schema: RoomSchema },
+];
